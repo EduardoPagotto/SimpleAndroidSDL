@@ -62,6 +62,18 @@ unlink ./app/jni/SDL2_ttf
 link_SDL2_into_project.sh
 ```
 
+### To Deploy in the project directory. It will build and install your .apk on any connected Android device
+
+./gradlew installDebug
+
+or
+
+./gradlew installRelease
+
+### to Clean
+TODO
+
+
 reference:
 - https://wiki.libsdl.org/Android
 - https://hg.libsdl.org/SDL/file/default/docs/README-android.md
