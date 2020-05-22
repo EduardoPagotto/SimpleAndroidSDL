@@ -73,6 +73,7 @@ or
 ### to Clean
 remover diretorios:
 - .gradle/
+- ./add/.cxx
 - ./app/.externalNativeBuild/
 - ./app/build/
 
