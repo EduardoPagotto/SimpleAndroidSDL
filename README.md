@@ -71,7 +71,11 @@ or
 ./gradlew installRelease
 
 ### to Clean
-TODO
+remover diretorios:
+- .gradle/
+- ./app/.externalNativeBuild/
+- ./app/build/
+
 
 
 reference:
