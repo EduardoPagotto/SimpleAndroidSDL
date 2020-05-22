@@ -16,6 +16,3 @@ add_subdirectory(SDL2)
 
 # Your game and its CMakeLists.txt are in a subfolder named "src"
 add_subdirectory(src)
-
-##??target_link_libraries(yourgame SDL2 SDL2main)
-##??add_library()
