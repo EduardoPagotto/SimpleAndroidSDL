@@ -77,6 +77,32 @@ remover diretorios:
 - ./app/build/
 
 
+### Verficicar as alterações:
+Subistituidos pelos CMakes nos mesmos diretorios
+
+---------- SimpleAndroidSDL/app/jni -------------------
+--- Android.mk: ---------------------------------------
+include $(call all-subdir-makefiles)
+
+--- Application.mk: -----------------------------------
+APP_STL := c++_shared
+APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
+# Min runtime API level
+APP_PLATFORM=android-16
+
+----------SimpleAndroidSDL/app/jni/src ----------------
+--- Android.mk: ---------------------------------------
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE := main
+SDL_PATH := ../SDL
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include
+# Add your application source files here...
+LOCAL_SRC_FILES := YourSourceHere.c
+LOCAL_SHARED_LIBRARIES := SDL2
+LOCAL_LDLIBS := -lGLESv1_CM -lGLESv2 -llog
+include $(BUILD_SHARED_LIBRARY)
+
 
 reference:
 - https://wiki.libsdl.org/Android
