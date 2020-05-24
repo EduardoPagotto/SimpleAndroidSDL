@@ -5,6 +5,9 @@ project(GAME)
 # armeabi-v7a requires cpufeatures library
 # include(AndroidNdkModules)
 # android_ndk_import_module_cpufeatures()
+# set(CPUFEATURES_LIBRARIES cpufeatures)
+##add_definitions(-DGLM_ENABLE_EXPERIMENTAL) #teste GL posterior
+#add_definitions(-DUSE_WEBP=OFF)
 
 # SDL sources are in a subfolder named "SDL"
 add_subdirectory(SDL2)

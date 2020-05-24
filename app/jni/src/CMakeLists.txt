@@ -4,10 +4,13 @@ project(MY_APP)
 
 find_library(SDL2 SDL2)
 
-add_library(main SHARED)
+set (LibsFirstTest SDL2)
+#set(CPUFEATURES_LIBRARIES cpufeatures)
 
-target_sources(main PRIVATE 52_hello_mobile.cpp)
+add_library(main SHARED first.cpp)
 
-target_link_libraries(main SDL2)
+#target_sources(main PRIVATE first.cpp)
+
+target_link_libraries(main ${LibsFirstTest})
 
 
