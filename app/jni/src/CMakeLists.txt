@@ -4,7 +4,11 @@ project(MY_APP)
 
 find_library(SDL2 SDL2)
 
-set (LibsFirstTest SDL2)
+set (LibsFirstTest  -lGLESv1_CM
+                    -lGLESv2 
+                    -llog
+                    SDL2)
+                    
 #set (LibsFirstTest cpufeatures SDL2)
 #set(CPUFEATURES_LIBRARIES cpufeatures)
 

@@ -38,6 +38,21 @@ ln -s SDL2_net-2.0.1 SDL2_net
 ln -s SDL2_ttf-2.0.15 SDL2_ttf
 ```
 
+### VSCode utils extensions (if using vscode)
+```bash
+code --install-extension abhiagr.logcat
+code --install-extension adelphes.android-dev-ext
+code --install-extension ms-vscode.cpptools
+code --install-extension naco-siren.gradle-language
+code --install-extension richardwillis.vscode-gradle
+code --install-extension twxs.cmake
+code --install-extension vinicioslc.adb-interface-vscode
+```
+listed with:
+```bash
+code --list-extensions | xargs -L 1 echo code --install-extension
+```
+
 ### Prepare environment project
 ```bash
 ln -s ~/androidlib/SDL2 ./app/jni/SDL2
@@ -78,32 +93,33 @@ remover diretorios:
 - ./app/build/
 
 
-### Verficicar as alterações:
-Subistituidos pelos CMakes nos mesmos diretorios
-
----------- SimpleAndroidSDL/app/jni -------------------
---- Android.mk: ---------------------------------------
+### Olds Makefiles removed
+path: ./SimpleAndroidSDL/app/jni/Android.mk
+```file
 include $(call all-subdir-makefiles)
+```
 
---- Application.mk: -----------------------------------
+path: ./SimpleAndroidSDL/app/jni/Application.mk
+```file
 APP_STL := c++_shared
 APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
 # Min runtime API level
 APP_PLATFORM=android-16
+```
 
-----------SimpleAndroidSDL/app/jni/src ----------------
---- Android.mk: ---------------------------------------
+path: ./SimpleAndroidSDL/app/jni/src/Android.mk
+```file
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := main
 SDL_PATH := ../SDL
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include
 # Add your application source files here...
-LOCAL_SRC_FILES := YourSourceHere.c
+LOCAL_SRC_FILES := first.cpp
 LOCAL_SHARED_LIBRARIES := SDL2
 LOCAL_LDLIBS := -lGLESv1_CM -lGLESv2 -llog
 include $(BUILD_SHARED_LIBRARY)
-
+```
 
 reference:
 - https://wiki.libsdl.org/Android
