@@ -6,4 +6,5 @@ app/jni/SDL*
 app/.externalNativeBuild/*
 app/.cxx/*
 app/build/*
+/build/*
 

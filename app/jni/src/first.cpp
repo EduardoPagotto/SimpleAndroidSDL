@@ -7,6 +7,8 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 
+#include <string>
+
 int main(int argc, char *argv[]) {
 
     SDL_Window* window = nullptr;
@@ -20,7 +22,8 @@ int main(int argc, char *argv[]) {
 
     SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 
-    SDL_Log("SDL2 Iniciado");
+    std::string msg_start = "SDL2 Iniciado"; 
+    SDL_Log("%s", msg_start.c_str());
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
