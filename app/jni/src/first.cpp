@@ -58,18 +58,43 @@ int main(int argc, char *argv[]) {
 
     // Main Loop 
     Uint8 done = 0;
-    SDL_Event event;
+    Uint32 tsDown = 0;
     int count = 0;
+    SDL_Event event;
     while(!done) {
-
         // Check Eventes
         while(SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN || event.type == SDL_FINGERDOWN)
-            {
-                done = 1;
+            switch (event.type) {
+
+                case SDL_QUIT:
+                case SDL_KEYDOWN:
+                    done = 1;
+                    SDL_Log("APP finished!!!!");
+                    break;
+
+                case SDL_FINGERMOTION:
+                    SDL_Log("MOVE XY: %f ; %f", event.tfinger.x, event.tfinger.y); // Vals XY 0.0 -> 1.0
+                    break;
+                
+                case SDL_FINGERDOWN:
+                    tsDown = event.tfinger.timestamp;
+                    SDL_Log("DOWN XY: %f ; %f", event.tfinger.x, event.tfinger.y);
+                    break;
+
+                case SDL_FINGERUP:
+                    Uint32 tot = event.tfinger.timestamp - tsDown;
+                    SDL_Log("UP (%d) XY: %f ; %f", tot, event.tfinger.x, event.tfinger.y);
+
+                    if (tot < 1000) { // if hold less than 1 sec
+                        done = 1;
+                        SDL_Log("APP finished FAST FINGER!!!!");
+                    }
+
+
+                    break;
             }
         }
-        SDL_Log("Count: %d", count++);
+        // SDL_Log("Count: %d", count++);
 
         glClearColor((rand() % 256) / 256.0f, (rand() % 256) / 256.0f, (rand() % 256) / 256.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
