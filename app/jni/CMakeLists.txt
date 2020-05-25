@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.6)
 
 project(GAME)
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS} -g -ftest-coverage -fprofile-arcs")
+#set(OVR_SET_TO_USE OFF) # futuro usado para esterioscopica
+add_definitions(-DANDROID_APP_PLATFORM=android-16)
+add_definitions(-DANDROID_STL=c++_static)
 
 # armeabi-v7a requires cpufeatures library
 # include(AndroidNdkModules)
