@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "../SDL2/include/SDL.h"
+#include "../external/SDL2/SDL2/include/SDL.h"
 
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>

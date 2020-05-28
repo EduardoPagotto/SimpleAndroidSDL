@@ -48,7 +48,7 @@ android {
             //     path 'jni/Android.mk'
             // }
             cmake {
-                path 'jni/CMakeLists.txt'
+                path '../../CMakeLists.txt' //'jni/CMakeLists.txt'
             }
         }
        

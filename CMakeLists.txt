@@ -14,7 +14,7 @@ add_definitions(-DANDROID_STL=c++_static)
 #add_definitions(-DUSE_WEBP=OFF)
 
 # SDL sources are in a subfolder named "SDL"
-add_subdirectory(SDL2)
+add_subdirectory(external)
 
 # Compilation of companion libraries
 #add_subdirectory(SDL2_image)
