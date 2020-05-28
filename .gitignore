@@ -6,3 +6,4 @@
 .externalNativeBuild
 .cxx
 distribution
+external/SDL2/SDL*
