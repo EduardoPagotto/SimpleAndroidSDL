@@ -9,13 +9,5 @@ set (LibsFirstTest  -lGLESv1_CM
                     -llog
                     SDL2)
                     
-#set (LibsFirstTest cpufeatures SDL2)
-#set(CPUFEATURES_LIBRARIES cpufeatures)
-
 add_library(main SHARED first.cpp)
-
-#target_sources(main PRIVATE first.cpp)
-
 target_link_libraries(main ${LibsFirstTest})
-
-
