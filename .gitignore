@@ -1,9 +1,4 @@
-#links SDL
-# app/jni/SDL*
-
-#build with ./gradlew installDebug
 .gradle
-.externalNativeBuild
 .cxx
 distribution
 external/SDL2/SDL*
