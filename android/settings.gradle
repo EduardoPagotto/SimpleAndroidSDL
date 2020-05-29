@@ -1,2 +1,3 @@
 rootProject.name='SimpleAndroidSDL'
 include ':app'
+//include ':SDL2'
