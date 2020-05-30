@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../hello-sdl2-android"
 		}
 	],
 	"settings": {}
