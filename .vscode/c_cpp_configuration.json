@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "AndroidSDL",
+            "includePath": [
+                "${workspaceFolder}/external/SDL2/**"
+            ],
+            "defines": [],
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "IntelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}

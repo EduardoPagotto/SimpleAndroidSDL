@@ -1,20 +1,37 @@
 # SimpleAndroidSDL
 SDL and Opengl native in Android devices using C/C++
 
-### Download
+Project separate in 3 part's with ABI armeabi-v7a
+1. SDL2 in C:<p>
+    - Compiled with NDK tools default (impossible to link using CMake)<p>
+      see: [./android/SDL2/build.gradle](android/SDL2/build.gradle)
+
+2. Game Lib in C++:<p>
+    - Compiled with GCC and CMake (yes we can!!)<p>
+    see: [./android/SDL2/build.gradle](android/app/build.gradle)
+
+3. App in Android Java:<p>
+    - Compiled with unsafe options to use API my app and SDL<p>
+    see: [./android/build.gradle](android/build.gradle)
+
+Obs: I using VScode insted AndroidStudio(even in top machines: lazyest)
+
+## Download
 - AndroidStudio
 - NDK
 - SDL2 source code
 
-### Ubuntu 20.04 packages install
+## Ubuntu 20.10 packages install
 ```bash
 apt install default-jdk
 apt install android-tools-adb
 apt install mercurial
-apt install gradle
+
+# Not necessary
+# apt install gradle
 ```
 
-### Edit file <i>local.properties</i> and set location of SDK and NDK
+Edit file <i>[./android/local.properties](./android/local.properties)</i> and set location of SDK and NDK
 ```file
 sdk.dir=/home/user/Android/Sdk
 ndk.dir=/home/user/Android/Sdk/ndk/21.1.6352462
@@ -55,42 +72,119 @@ code --list-extensions | xargs -L 1 echo code --install-extension
 
 ### Prepare environment project
 ```bash
-ln -s ~/androidlib/SDL2 ./app/jni/SDL2
-ln -s ~/androidlib/SDL2_image ./app/jni/SDL2_image
-ln -s ~/androidlib/SDL2_net ./app/jni/SDL2_net
-ln -s ~/androidlib/SDL2_ttf ./app/jni/SDL2_ttf
-ln -s ~/androidlib/SDL2_mixer ./app/jni/SDL2_mixer
+ln -s ~/androidlib/SDL2 ./external/SDL2/SDL2
+ln -s ~/androidlib/SDL2_image ./external/SDL2/SDL2_image
+ln -s ~/androidlib/SDL2_net ./external/SDL2/SDL2_net
+ln -s ~/androidlib/SDL2_ttf ./external/SDL2/SDL2_ttf
+ln -s ~/androidlib/SDL2_mixer ./external/SDL2/SDL2_mixer
+
+# or
+./tools-util/link_SDL2_into_project.sh
+
+# to remove if you wish
+unlink ./external/SDL2/SDL2
+unlink ./external/SDL2/SDL2_image
+unlink ./external/SDL2/SDL2_net
+unlink ./external/SDL2/SDL2_ttf
+unlink ./external/SDL2/SDL2_mixer
 ```
 
-### Remove environment project (if necessary)
+### Error vscode 
+case: <i>"Visual Studio Code is unable to watch for file changes in this large workspace" <p>(error ENOSPC)</i><p>
 ```bash
-unlink ./app/jni/SDL2
-unlink ./app/jni/SDL2_image
-unlink ./app/jni/SDL2_mixer
-unlink ./app/jni/SDL2_net
-unlink ./app/jni/SDL2_ttf
+cat /proc/sys/fs/inotify/max_user_watches
+8192
 ```
-
-### Optimal
+edit /etc/sysctl.conf and add to change default value
+```file
+fs.inotify.max_user_watches=524288
+```
+Apply new value and test
 ```bash
-# create links
-link_SDL2_into_project.sh
+sudo sysctl -p
+cat /proc/sys/fs/inotify/max_user_watches
+524288
 ```
+<p>
 
-### To Deploy in the project directory. It will build and install your .apk on any connected Android device
+### Build and Deploy in Cell
+It will build and install your .apk on any connected Android device
 
-./gradlew installDebug
+1. Enable cell phone developer and connect udb cable
 
-or
+    >seting->system->develop options->usb debug enable
 
-./gradlew installRelease
+2. Enable ADB
+    ```bash
+    # enable adb
+    sudo adb start-server
 
-### to Clean
-remover diretorios:
-- .gradle/
-- ./add/.cxx
-- ./app/.externalNativeBuild/
-- ./app/build/
+    # reinicia servidor 
+    # sudo adb kill-server
+
+    # show devices connected
+    adb devices
+
+    List of devices attached
+    0039710819      device
+    ```
+
+3. Build
+    ```bash
+    # go to project compiler directory
+    cd android
+
+    # show tasks 
+    ./gradlew tasks
+
+    # show projects
+    ./gradlew projects
+
+    # builds
+    ./gradlew :SDL2:build
+    ./gradlew :app:build
+    ./gradlew :app:android build
+    ```
+
+4. Deploy Cell
+    ```bash
+    # or build all project
+    ./gradlew build
+
+    # install debug app
+    ./gradlew installDebug
+
+    # or install release
+    ./gradlew installRelease
+    ```
+
+5. Build and Deploy in Simulator AVD
+    ```bash
+    # go to android SDK directory
+    cd ~/Android/Sdk/tools
+
+    # lista devices configurados
+    ./emulator -list-avds
+    $Pixel_2_API_27
+
+    # enable AVD
+    ./emulator -avd Pixel_2_API_27
+    ```
+
+### Clean Project by directory:
+```bash
+cd android
+
+#in cell phone ou AVD
+./gradlew uninstallDebug
+# or
+./gradlew uninstallReleae
+
+# in project directorys
+rm .gradle
+rm .distribution
+rm ./app/.cxx
+```
 
 
 ### Olds Makefiles removed

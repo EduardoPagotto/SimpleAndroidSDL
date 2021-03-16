@@ -2,27 +2,27 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "../external/SDL2/SDL2/include/SDL.h"
+#include <SDL2/include/SDL.h>
 
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 
 #include <string>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
     SDL_Window* window = nullptr;
     SDL_GLContext gl = nullptr;
 
-    // Initialize SDL 
+    // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "\nUnable to initialize SDL: %s\n", SDL_GetError());
         return 1;
-    } 
+    }
 
     SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 
-    std::string msg_start = "SDL2 Iniciado"; 
+    std::string msg_start = "SDL2 Iniciado";
     SDL_Log("%s", msg_start.c_str());
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
@@ -56,14 +56,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Main Loop 
+    // Main Loop
     Uint8 done = 0;
     Uint32 tsDown = 0;
     int count = 0;
     SDL_Event event;
-    while(!done) {
+    while (!done) {
         // Check Eventes
-        while(SDL_PollEvent(&event)) {
+        while (SDL_PollEvent(&event)) {
             switch (event.type) {
 
                 case SDL_QUIT:
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
                 case SDL_FINGERMOTION:
                     SDL_Log("MOVE XY: %f ; %f", event.tfinger.x, event.tfinger.y); // Vals XY 0.0 -> 1.0
                     break;
-                
+
                 case SDL_FINGERDOWN:
                     tsDown = event.tfinger.timestamp;
                     SDL_Log("DOWN XY: %f ; %f", event.tfinger.x, event.tfinger.y);
@@ -90,7 +90,6 @@ int main(int argc, char *argv[]) {
                         SDL_Log("APP finished FAST FINGER!!!!");
                     }
 
-
                     break;
             }
         }
@@ -101,7 +100,6 @@ int main(int argc, char *argv[]) {
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(100);
-
     }
 
     exit(0);
