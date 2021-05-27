@@ -3,7 +3,7 @@ SDL and Opengl native in Android devices using C/C++
 
 Project separate in 3 part's with ABI armeabi-v7a
 1. SDL2 in C:<p>
-    - Compiled with NDK tools default (impossible to link using CMake)<p>
+    - Compiled with NDK tools default (impossible to link using CMake in armeabi-v7a)<p>
       see: [./android/SDL2/build.gradle](android/SDL2/build.gradle)
 
 2. Game Lib in C++:<p>
@@ -19,15 +19,15 @@ Obs: I using VScode insted AndroidStudio(even in top machines: lazyest)
 ## Download
 - AndroidStudio
 - NDK
-- SDL2 source code
+- SDL2 source code (links bellow)
 
-## Ubuntu 20.10 packages install
+## Ubuntu 21.04 packages install
 ```bash
 apt install default-jdk
 apt install android-tools-adb
 apt install mercurial
 
-# Not necessary
+# No more necessary
 # apt install gradle
 ```
 
@@ -37,22 +37,50 @@ sdk.dir=/home/user/Android/Sdk
 ndk.dir=/home/user/Android/Sdk/ndk/21.1.6352462
 ```
 
-### Prepare environment to new machine
-Download all SDL2 libs and copy into ~/androidlib/
+### Download all SDL2 libs 
+<i>In my machine:</i> ~/Downloads:
+- https://www.libsdl.org/release/SDL2-2.0.14.tar.gz
+- https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
+- https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz
+- https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
+- https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
+
+### Setup environment to project with SDL2
 ```bash
-# unzip all libs
-tar xvf SDL2-2.0.12.tar.gz
+# create a android lib dir
+mkdir ~/androidlib
+cd ./androidlib
+
+# Copy all SDL2 libs from Downloads directory to: ~/androidlib
+cp ~/Downloads/SDL2*.tar.gz .
+
+# Extract all libs
+tar xvf SDL2-2.0.14.tar.gz
 tar xvf SDL2_image-2.0.5.tar.gz
 tar xvf SDL2_mixer-2.0.4.tar.gz
 tar xvf SDL2_net-2.0.1.tar.gz
 tar xvf SDL2_ttf-2.0.15.tar.gz
 
-# create link removing version like below
-ln -s SDL2-2.0.12 SDL2
+# create link base version
+ln -s SDL2-2.0.14 SDL2
 ln -s SDL2_image-2.0.5 SDL2_image
 ln -s SDL2_mixer-2.0.4 SDL2_mixer
 ln -s SDL2_net-2.0.1 SDL2_net
 ln -s SDL2_ttf-2.0.15 SDL2_ttf
+
+# Go to the project directory
+cd ~/Projects/SimpleAndroidSDL
+
+# Link libs to project
+ln -s ~/androidlib/SDL2 ./external/SDL2/SDL2
+ln -s ~/androidlib/SDL2_image ./external/SDL2/SDL2_image
+ln -s ~/androidlib/SDL2_net ./external/SDL2/SDL2_net
+ln -s ~/androidlib/SDL2_ttf ./external/SDL2/SDL2_ttf
+ln -s ~/androidlib/SDL2_mixer ./external/SDL2/SDL2_mixer
+
+# or use the scripr bellow
+# ./tools-util/link_SDL2_into_project.sh
+
 ```
 
 ### VSCode utils extensions (if using vscode)
@@ -68,25 +96,6 @@ code --install-extension vinicioslc.adb-interface-vscode
 listed with:
 ```bash
 code --list-extensions | xargs -L 1 echo code --install-extension
-```
-
-### Prepare environment project
-```bash
-ln -s ~/androidlib/SDL2 ./external/SDL2/SDL2
-ln -s ~/androidlib/SDL2_image ./external/SDL2/SDL2_image
-ln -s ~/androidlib/SDL2_net ./external/SDL2/SDL2_net
-ln -s ~/androidlib/SDL2_ttf ./external/SDL2/SDL2_ttf
-ln -s ~/androidlib/SDL2_mixer ./external/SDL2/SDL2_mixer
-
-# or
-./tools-util/link_SDL2_into_project.sh
-
-# to remove if you wish
-unlink ./external/SDL2/SDL2
-unlink ./external/SDL2/SDL2_image
-unlink ./external/SDL2/SDL2_net
-unlink ./external/SDL2/SDL2_ttf
-unlink ./external/SDL2/SDL2_mixer
 ```
 
 ### Error vscode 
@@ -107,8 +116,8 @@ cat /proc/sys/fs/inotify/max_user_watches
 ```
 <p>
 
-### Build and Deploy in Cell
-It will build and install your .apk on any connected Android device
+### Build and Deploy in to Cell
+It will build and install the .apk on any connected Android device
 
 1. Enable cell phone developer and connect udb cable
 
@@ -131,8 +140,8 @@ It will build and install your .apk on any connected Android device
 
 3. Build
     ```bash
-    # go to project compiler directory
-    cd android
+    # go to project compiler directory (~/Projects/SimpleAndroidSDL/android)
+    cd ./android
 
     # show tasks 
     ./gradlew tasks
