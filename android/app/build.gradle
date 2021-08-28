@@ -36,5 +36,5 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':SDL2')
+    implementation project(':SDL2')
 }

@@ -60,7 +60,7 @@ ndk.dir=/home/user/Android/Sdk/ndk/21.1.6352462
 
 ### Download all SDL2 libs 
 <i>In my machine:</i> ~/Downloads:
-- https://www.libsdl.org/release/SDL2-2.0.14.tar.gz
+- https://www.libsdl.org/release/SDL2-2.0.16.tar.gz
 - https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
 - https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz
 - https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
@@ -77,7 +77,7 @@ cp ~/Downloads/SDL2*.tar.gz .
 cp ~/Downloads/glm-0.9.9.8.tar.gz .
 
 # Extract all libs (SDL2 and GLM)
-tar xvf SDL2-2.0.14.tar.gz
+tar xvf SDL2-2.0.16.tar.gz
 tar xvf SDL2_image-2.0.5.tar.gz
 tar xvf SDL2_mixer-2.0.4.tar.gz
 tar xvf SDL2_net-2.0.1.tar.gz
@@ -85,7 +85,7 @@ tar xvf SDL2_ttf-2.0.15.tar.gz
 tar xvf glm-0.9.9.8.tar.gz
 
 # create link's
-ln -s SDL2-2.0.14 SDL2
+ln -s SDL2-2.0.16 SDL2
 ln -s SDL2_image-2.0.5 SDL2_image
 ln -s SDL2_mixer-2.0.4 SDL2_mixer
 ln -s SDL2_net-2.0.1 SDL2_net
