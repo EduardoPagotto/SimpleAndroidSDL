@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    ndkVersion '21.1.6352462'
     externalNativeBuild {
         ndkBuild {
             path '../../external/SDL2/Android.mk'

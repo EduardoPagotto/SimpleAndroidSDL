@@ -1,5 +1,25 @@
 # SimpleAndroidSDL
-SDL and Opengl native in Android devices using C/C++
+SDL, glm and Opengl native in Android devices using C/C++
+
+## Deps
+Ubuntu:
+```bash
+# Android depends:
+sudo apt install openjdk-11-jdk-headless
+sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
+```
+
+AndroidStudio:<i>https://developer.android.com/studio/index.html?hl=pt-br</i>
+```bash
+tar xvf android-studio-ide-191.5900203-linux.tar.gz
+sudo mv android-studio /opt/
+cd /opt/android-studio/bin
+
+# add to projetct licences  and NDK 21.1.6352462
+# project tested with compileSdkVersion 26
+./studio
+```
+
 
 Project separate in 3 part's with ABI armeabi-v7a
 1. SDL2 in C:<p>
@@ -8,7 +28,7 @@ Project separate in 3 part's with ABI armeabi-v7a
 
 2. Game Lib in C++:<p>
     - Compiled with GCC and CMake (yes we can!!)<p>
-    see: [./android/SDL2/build.gradle](android/app/build.gradle)
+    see: [./android/app/build.gradle](android/app/build.gradle)
 
 3. App in Android Java:<p>
     - Compiled with unsafe options to use API my app and SDL<p>
@@ -20,6 +40,7 @@ Obs: I using VScode insted AndroidStudio(even in top machines: lazyest)
 - AndroidStudio
 - NDK
 - SDL2 source code (links bellow)
+- GLM soruce code (https://github.com/g-truc/glm/releases)
 
 ## Ubuntu 21.04 packages install
 ```bash
@@ -53,30 +74,34 @@ cd ./androidlib
 
 # Copy all SDL2 libs from Downloads directory to: ~/androidlib
 cp ~/Downloads/SDL2*.tar.gz .
+cp ~/Downloads/glm-0.9.9.8.tar.gz .
 
-# Extract all libs
+# Extract all libs (SDL2 and GLM)
 tar xvf SDL2-2.0.14.tar.gz
 tar xvf SDL2_image-2.0.5.tar.gz
 tar xvf SDL2_mixer-2.0.4.tar.gz
 tar xvf SDL2_net-2.0.1.tar.gz
 tar xvf SDL2_ttf-2.0.15.tar.gz
+tar xvf glm-0.9.9.8.tar.gz
 
-# create link base version
+# create link's
 ln -s SDL2-2.0.14 SDL2
 ln -s SDL2_image-2.0.5 SDL2_image
 ln -s SDL2_mixer-2.0.4 SDL2_mixer
 ln -s SDL2_net-2.0.1 SDL2_net
 ln -s SDL2_ttf-2.0.15 SDL2_ttf
+ln -s glm-0.9.9.8 glm
 
 # Go to the project directory
 cd ~/Projects/SimpleAndroidSDL
 
-# Link libs to project
+# Link libs dirs to project
 ln -s ~/androidlib/SDL2 ./external/SDL2/SDL2
 ln -s ~/androidlib/SDL2_image ./external/SDL2/SDL2_image
 ln -s ~/androidlib/SDL2_net ./external/SDL2/SDL2_net
 ln -s ~/androidlib/SDL2_ttf ./external/SDL2/SDL2_ttf
 ln -s ~/androidlib/SDL2_mixer ./external/SDL2/SDL2_mixer
+ln -s ~/androidlib/glm ./external/glm
 
 # or use the scripr bellow
 # ./tools-util/link_SDL2_into_project.sh

@@ -6,6 +6,7 @@
 
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
+#include <glm/glm.hpp>
 
 #include <string>
 
@@ -55,6 +56,9 @@ int main(int argc, char* argv[]) {
         SDL_Quit();
         return 1;
     }
+
+    glm::vec3 valTeste = glm::vec3(0.0f ,10.0f, 0.0f);
+    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Teste GL %.2f, %.2f, %.2f", valTeste.x, valTeste.y, valTeste.z);
 
     // Main Loop
     Uint8 done = 0;

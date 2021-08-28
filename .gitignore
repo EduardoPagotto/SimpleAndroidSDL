@@ -2,3 +2,4 @@
 .cxx
 distribution
 external/SDL2/SDL*
+external/glm

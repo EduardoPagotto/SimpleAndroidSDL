@@ -1,2 +1,1 @@
 export ANDROID_HOME=~/Android/Sdk
-export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21.1.6352462

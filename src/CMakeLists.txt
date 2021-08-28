@@ -7,7 +7,8 @@ find_library(SDL2 SDL2)
 set (LibsFirstTest  -lGLESv1_CM
                     -lGLESv2 
                     -llog
-                    SDL2)
+                    SDL2
+                    glm)
                     
 add_library(main SHARED first.cpp)
 target_include_directories (main PUBLIC ${SDL_LOCATION})

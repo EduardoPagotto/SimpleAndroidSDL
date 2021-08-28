@@ -19,3 +19,4 @@ set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION ${DISTRIBUTION_DIR}/${AN
 
 # Your game and its CMakeLists.txt are in a subfolder named "src"
 add_subdirectory(src)
+add_subdirectory(external)
