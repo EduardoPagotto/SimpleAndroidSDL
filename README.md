@@ -1,15 +1,18 @@
 # SimpleAndroidSDL
 SDL, glm and Opengl native in Android devices using C/C++
 
-## Deps
-Ubuntu:
+## Deps Ubuntu
+
+### Packages Jdk:
 ```bash
 # Android depends:
-sudo apt install openjdk-11-jdk-headless
+sudo apt install openjdk-11-jdk-headless default-jdk android-tools-adb mercurial
 sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
 ```
 
-AndroidStudio:<i>https://developer.android.com/studio/index.html?hl=pt-br</i>
+### AndroidStudio
+<i>https://developer.android.com/studio/index.html?hl=pt-br</i>
+
 ```bash
 tar xvf android-studio-ide-191.5900203-linux.tar.gz
 sudo mv android-studio /opt/
@@ -20,53 +23,47 @@ cd /opt/android-studio/bin
 ./studio
 ```
 
+### Gradle
+ref: https://linuxize.com/post/how-to-install-gradle-on-ubuntu-20-04
 
-Project separate in 3 part's with ABI armeabi-v7a
-1. SDL2 in C:<p>
-    - Compiled with NDK tools default (impossible to link using CMake in armeabi-v7a)<p>
-      see: [./android/SDL2/build.gradle](android/SDL2/build.gradle)
-
-2. Game Lib in C++:<p>
-    - Compiled with GCC and CMake (yes we can!!)<p>
-    see: [./android/app/build.gradle](android/app/build.gradle)
-
-3. App in Android Java:<p>
-    - Compiled with unsafe options to use API my app and SDL<p>
-    see: [./android/build.gradle](android/build.gradle)
-
-Obs: I using VScode insted AndroidStudio(even in top machines: lazyest)
-
-## Download
-- AndroidStudio
-- NDK
-- SDL2 source code (links bellow)
-- GLM soruce code (https://github.com/g-truc/glm/releases)
-
-## Ubuntu 21.04 packages install
 ```bash
-apt install default-jdk
-apt install android-tools-adb
-apt install mercurial
+# Download version 6.5.1
+VERSION=6.5.1
+wget https://services.gradle.org/distributions/gradle-${VERSION}-bin.zip -P /tmp
 
-# No more necessary
-# apt install gradle
+# extract and config env
+sudo unzip -d /opt/gradle /tmp/gradle-${VERSION}-bin.zip
+ln -s gradle-${VERSION} gradle
+
+sudo nano /etc/profile.d/gradle.sh
 ```
 
-Edit file <i>[./android/local.properties](./android/local.properties)</i> and set location of SDK and NDK
 ```file
-sdk.dir=/home/user/Android/Sdk
-ndk.dir=/home/user/Android/Sdk/ndk/21.1.6352462
+export GRADLE_HOME=/opt/gradle
+export PATH=${GRADLE_HOME}/bin:${PATH}
 ```
 
-### Download all SDL2 libs 
-<i>In my machine:</i> ~/Downloads:
-- https://www.libsdl.org/release/SDL2-2.0.16.tar.gz
-- https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
-- https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz
-- https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
-- https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
+```bash
+# execute env and test
+sudo chmod +x /etc/profile.d/gradle.sh
+source /etc/profile.d/gradle.sh
 
-### Setup environment to project with SDL2
+gradle -v
+```
+
+### SDL2/GLM Sources
+```bash
+# Download 
+wget https://www.libsdl.org/release/SDL2-2.0.16.tar.gz -P ~/Downloads
+wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz -P ~/Downloads
+wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -P ~/Downloads
+wget https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz -P ~/Downloads
+wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -P ~/Downloads
+# GLM soruce code in (https://github.com/g-truc/glm/releases)
+
+```
+
+#### Setup environment to project with SDL2
 ```bash
 # create a android lib dir
 mkdir ~/androidlib
@@ -105,10 +102,32 @@ ln -s ~/androidlib/glm ./external/glm
 
 # or use the scripr bellow
 # ./tools-util/link_SDL2_into_project.sh
-
 ```
 
-### VSCode utils extensions (if using vscode)
+## Project set
+
+Project separate in 3 part's with ABI armeabi-v7a
+1. SDL2/glm in C/C++:<p>
+    - Compiled with NDK tools default (impossible to link using CMake in armeabi-v7a)<p>
+      see: [./android/SDL2/build.gradle](android/SDL2/build.gradle)
+
+2. Game Lib in C++:<p>
+    - Compiled with GCC and CMake (yes we can!!)<p>
+    see: [./android/app/build.gradle](android/app/build.gradle)
+
+3. App in Android Java:<p>
+    - Compiled with unsafe options to use API my app and SDL<p>
+    see: [./android/build.gradle](android/build.gradle)
+
+Obs: I using VScode insted AndroidStudio(even in top machines: lazyest)
+
+Edit file <i>[./android/local.properties](./android/local.properties)</i> and set location of SDK and NDK
+```file
+sdk.dir=/home/user/Android/Sdk
+ndk.dir=/home/user/Android/Sdk/ndk/21.1.6352462
+```
+
+## VSCode utils extensions (if using vscode)
 ```bash
 code --install-extension abhiagr.logcat
 code --install-extension adelphes.android-dev-ext
@@ -123,7 +142,7 @@ listed with:
 code --list-extensions | xargs -L 1 echo code --install-extension
 ```
 
-### Error vscode 
+## If error vscode 
 case: <i>"Visual Studio Code is unable to watch for file changes in this large workspace" <p>(error ENOSPC)</i><p>
 ```bash
 cat /proc/sys/fs/inotify/max_user_watches
@@ -169,27 +188,27 @@ It will build and install the .apk on any connected Android device
     cd ./android
 
     # show tasks 
-    ./gradlew tasks
+    gradle tasks
 
     # show projects
-    ./gradlew projects
+    gradle projects
 
     # builds
-    ./gradlew :SDL2:build
-    ./gradlew :app:build
-    ./gradlew :app:android build
+    gradle :SDL2:build
+    gradle :app:build
+    gradle :app:android build
     ```
 
 4. Deploy Cell
     ```bash
     # or build all project
-    ./gradlew build
+    gradle build
 
     # install debug app
-    ./gradlew installDebug
+    gradle installDebug
 
-    # or install release
-    ./gradlew installRelease
+    # or install release ( still not working :( )
+    # gradle installRelease
     ```
 
 5. Build and Deploy in Simulator AVD
@@ -212,14 +231,14 @@ cd android
 #in cell phone ou AVD
 ./gradlew uninstallDebug
 # or
-./gradlew uninstallReleae
+# ./gradlew uninstallReleae
 
-# in project directorys
-rm .gradle
-rm .distribution
-rm ./app/.cxx
+# in project directory´s
+rm -rf .gradle
+rm -rf distribution
+rm -rf ./app/.cxx
+rm -rf ./SDL2/.cxx
 ```
-
 
 ### Olds Makefiles removed
 path: ./SimpleAndroidSDL/app/jni/Android.mk
