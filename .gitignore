@@ -1,5 +1,5 @@
 .gradle
 .cxx
-distribution
+/build
 external/SDL2/SDL*
 external/glm

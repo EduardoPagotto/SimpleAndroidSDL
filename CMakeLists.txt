@@ -6,7 +6,7 @@ project(GAME)
 
 #SimpleAndroidSDL/android/build/android/SDL2/intermediates/ndkBuild/debug/obj/local/armeabi-v7a
 string(TOLOWER ${CMAKE_BUILD_TYPE} ANDROID_BUILD_DIR)
-set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/android/build/android/SDL2/intermediates/ndkBuild)
+set(DISTRIBUTION_DIR ${CMAKE_SOURCE_DIR}/build/SDL2/intermediates/ndkBuild)
 set(SDL_LOCATION ${CMAKE_SOURCE_DIR}/external/SDL2)
 
 add_library( SDL2 SHARED IMPORTED )
