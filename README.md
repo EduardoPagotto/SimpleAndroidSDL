@@ -109,19 +109,19 @@ ln -s ~/androidlib/glm ./external/glm
 Project separate in 3 part's with ABI armeabi-v7a
 1. SDL2/glm in C/C++:<p>
     - Compiled with NDK tools default (impossible to link using CMake in armeabi-v7a)<p>
-      see: [./android/SDL2/build.gradle](android/SDL2/build.gradle)
+      see: [./SDL2/build.gradle](SDL2/build.gradle)
 
 2. Game Lib in C++:<p>
     - Compiled with GCC and CMake (yes we can!!)<p>
-    see: [./android/app/build.gradle](android/app/build.gradle)
+    see: [./app/build.gradle](app/build.gradle)
 
 3. App in Android Java:<p>
     - Compiled with unsafe options to use API my app and SDL<p>
-    see: [./android/build.gradle](android/build.gradle)
+    see: [./build.gradle](build.gradle)
 
 Obs: I using VScode insted AndroidStudio(even in top machines: lazyest)
 
-Edit file <i>[./android/local.properties](./android/local.properties)</i> and set location of SDK and NDK
+Edit file <i>[./local.properties](./local.properties)</i> and set location of SDK and NDK
 ```file
 sdk.dir=/home/user/Android/Sdk
 ndk.dir=/home/user/Android/Sdk/ndk/21.1.6352462
@@ -184,9 +184,6 @@ It will build and install the .apk on any connected Android device
 
 3. Build
     ```bash
-    # go to project compiler directory (~/Projects/SimpleAndroidSDL/android)
-    cd ./android
-
     # show tasks 
     gradle tasks
 
@@ -226,16 +223,16 @@ It will build and install the .apk on any connected Android device
 
 ### Clean Project by directory:
 ```bash
-cd android
-
 #in cell phone ou AVD
-./gradlew uninstallDebug
+./gradle uninstallDebug
 # or
-# ./gradlew uninstallReleae
+# ./gradle uninstallReleae
+
+./gradle clean
 
 # in project directory´s
 rm -rf .gradle
-rm -rf distribution
+rm -rf build
 rm -rf ./app/.cxx
 rm -rf ./SDL2/.cxx
 ```
